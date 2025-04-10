@@ -1,6 +1,12 @@
+import os
+from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackContext, CallbackQueryHandler, MessageHandler, filters
 from telegram.constants import ParseMode
+
+# Load environment variables from .env file
+load_dotenv()
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 # Constants for URLs
 REQUISITION_URL = 'https://a118375.socialsolutionsportal.com/apricot-intake/0aaaa575-68a7-49c6-a295-ab071f04531f'
@@ -119,7 +125,7 @@ async def clear(update: Update, context: CallbackContext) -> None:
     await start(update, context)
 
 def main():
-    application = ApplicationBuilder().token('7893005379:AAFS3-klATmKiffJnjPWHmevGJ4rlVjLVzs').build()
+    application = ApplicationBuilder().token(BOT_TOKEN).build()
 
     application.add_handler(CommandHandler('start', start))
     application.add_handler(CommandHandler('menu', dynamic_menu))  # Add the dynamic menu command
